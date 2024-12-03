@@ -62,7 +62,7 @@ BLUESKY_PASSWORD=your_password
 
 Run the script with a target username:
 ```bash
-node script.js target.username
+node blocker.js target.username
 ```
 
 ## 🎨 Output Explanation
