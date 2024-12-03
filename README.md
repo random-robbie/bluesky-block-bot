@@ -2,22 +2,35 @@
 
 A robust Node.js script for security researchers and penetration testers to analyze follower relationships and test block functionality on Bluesky Social. This tool allows you to block all followers of a specified user with built-in rate limiting, error handling, and detailed logging.
 
-## ⚠️ Important Notice
+## 📊 Live Statistics & Features
 
-This tool is intended for legitimate security research and penetration testing purposes only. Always:
-- Obtain proper authorization before testing
-- Follow responsible disclosure practices
-- Comply with Bluesky's Terms of Service
-- Use rate limiting to avoid service disruption
+Watch your blocking progress in real-time with detailed statistics:
 
-## 🌟 Features
+```
+🚫 Blocked user: user.handle (did:plc:abcdefg...)
+   👤 Display Name: John Doe
+   📊 Progress: 1/150 (1%)
 
+📊 Block Operation Statistics 📊
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 Total Followers: 150
+✅ Successful Blocks: 148
+❌ Failed Blocks: 2
+⏱️  Duration: 0h 2m 30s
+⚡ Average Block Rate: 59 blocks/minute
+✨ Success Rate: 99%
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### 🌟 Key Features
+
+- **Real-time Progress**: Watch blocks happen live with usernames and DIDs
+- **Detailed Statistics**: Track success rates, speed, and completion time
+- **User-friendly Output**: Colorful console output with emojis and progress tracking
 - **Rate Limiting**: Intelligent request throttling to prevent API abuse
 - **Error Handling**: Comprehensive error catching and retry mechanisms
 - **Pagination Support**: Handles large follower lists efficiently
-- **Detailed Logging**: Structured logging with Pino for debugging and audit trails
 - **Environment Configuration**: Secure credential management via dotenv
-- **Retry Logic**: Automatic retry of failed operations with exponential backoff
 
 ## 🛠️ Prerequisites
 
@@ -36,7 +49,7 @@ cd bluesky-block-bot
 
 2. Install dependencies:
 ```bash
-npm install @atproto/api dotenv pino pino-pretty
+npm install @atproto/api dotenv pino pino-pretty chalk
 ```
 
 3. Create a `.env` file in the project root:
@@ -49,17 +62,19 @@ BLUESKY_PASSWORD=your_password
 
 Run the script with a target username:
 ```bash
-node blocker.js target.username
+node script.js target.username
 ```
 
-Example output:
-```
-[2024-12-03T12:34:56.789Z] INFO: Successfully logged into Bluesky
-[2024-12-03T12:34:57.123Z] INFO: Starting mass block for followers of target.username
-[2024-12-03T12:34:57.456Z] INFO: Found 150 followers to block
-[2024-12-03T12:34:58.789Z] INFO: Successfully blocked user: did:plc:abcdefg...
-...
-```
+## 🎨 Output Explanation
+
+The tool provides rich, colorful output with various indicators:
+- 🚫 Block operations
+- 👤 User information
+- 📊 Progress updates
+- ✅ Successful operations
+- ❌ Failed operations
+- ⚠️ Warnings and retries
+- 🎯 Target information
 
 ## 🔧 Configuration
 
@@ -72,27 +87,20 @@ const MAX_RETRIES = 3          // Maximum retry attempts
 
 ## 📝 Logging
 
-The tool uses Pino for structured logging with the following levels:
-- `ERROR`: Critical failures requiring attention
-- `WARN`: Non-critical issues and retry attempts
-- `INFO`: Regular operation updates
-
-Log files are generated in the project directory for audit purposes.
+The tool uses both Pino for file logging and Chalk for beautiful console output:
+- Structured log files for audit trails
+- Colorful console output for real-time monitoring
+- Detailed progress and statistics
+- Error and warning highlighting
 
 ## 🔄 Error Handling
 
-The script handles various error scenarios:
-- Network connectivity issues
-- API rate limiting
-- Authentication failures
-- Invalid usernames
-- Failed block operations
-
-Each error includes:
-- Timestamp
-- Error type
-- Detailed message
-- Retry attempt count (if applicable)
+The script handles various error scenarios with visual indicators:
+- ❌ Network connectivity issues
+- ⚠️ API rate limiting
+- ❌ Authentication failures
+- ⚠️ Invalid usernames
+- ❌ Failed block operations
 
 ## 🤝 Contributing
 
@@ -110,7 +118,7 @@ Report bugs by opening an issue. Include:
 - Detailed description
 - Steps to reproduce
 - Expected vs actual behavior
-- Error messages and logs
+- Console output and logs
 
 ## 📜 License
 
